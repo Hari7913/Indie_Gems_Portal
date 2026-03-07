@@ -58,21 +58,34 @@ pipeline {
         }
 
 
-        
-
         stage('Run Docker Container') {
-            steps {
-                dir("${WORK_DIR}") {
-                    sh '''
-                        docker rm -f ${CONTAINER_NAME} || true
-                        // docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${CONTAINER_PORT} \ ${IMAGE_NAME}:${IMAGE_TAG}
-                          docker run -d \
-                -p ${HOST_PORT}:${CONTAINER_PORT} \
+    steps {
+        dir("${WORK_DIR}") {
+            sh '''
+                docker rm -f ${CONTAINER_NAME} || true
+
+                docker run -d \
+                -p ${PORT}:${CONTAINER_PORT} \
                 --name ${CONTAINER_NAME} \
                 ${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}
-                    '''
-                }
-            }
+            '''
+        }
+    }
+}
+
+        // stage('Run Docker Container') {
+        //     steps {
+        //         dir("${WORK_DIR}") {
+        //             sh '''
+        //                 docker rm -f ${CONTAINER_NAME} || true
+        //                 // docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${CONTAINER_PORT} \ ${IMAGE_NAME}:${IMAGE_TAG}
+        //                   docker run -d \
+        //         -p ${HOST_PORT}:${CONTAINER_PORT} \
+        //         --name ${CONTAINER_NAME} \
+        //         ${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}
+        //             '''
+        //         }
+        //     }
     
 
     // post {
