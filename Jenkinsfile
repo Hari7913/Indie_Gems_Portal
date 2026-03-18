@@ -127,6 +127,23 @@ pipeline {
     //     always {
     //         echo "Pipeline finished! Check http://13.204.85.107:3000"
     //     }
+
+        // below kubernates
+        stage('Update Kubernetes Deployment') {
+    steps {
+        sh """
+        # Set the new image for the deployment
+        kubectl set image deployment/java-deploy \
+            indie-gems-container=${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG} \
+            --record
+
+        # Wait for rollout to finish
+        kubectl rollout status deployment/java-deploy
+        """
+    }
+}
+
+        ////  above kubernaties
     }
 }
 
