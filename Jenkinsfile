@@ -2,16 +2,16 @@ pipeline {
     agent any
 
     environment {
-        WORK_DIR = "/var/lib/jenkins/workspace/Game"
+        WORK_DIR = "/var/lib/jenkins/workspace/gemsportal"
         IMAGE_NAME = "indie-gems"
         IMAGE_TAG = "${BUILD_NUMBER}"
         CONTAINER_NAME = "indie-gems-container"
         PORT = "9676"
-        DOCKERHUB_USER = "9397054542"
-        DOCKER_CREDS = "dockerCred"
+        DOCKERHUB_USER = "lucky7913"
+        DOCKER_CREDS = "dockerhub-creds"
         CONTAINER_PORT = "80"
         AWS_REGION = "ap-south-1"
-        EKS_CLUSTER = "mycluster"
+        EKS_CLUSTER = "haricluster"
         KUBECONFIG = "/var/lib/jenkins/.kube/config"
     }
 
@@ -19,7 +19,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 dir("${WORK_DIR}") {
-                    git branch: 'main', url: 'https://github.com/satyanarayana-24/Indie_Gems_Portal.git'
+                    git branch: 'main', url: 'https://github.com/Hari7913/Indie_Gems_Portal.git'
                 }
             }
         }
